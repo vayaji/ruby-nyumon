@@ -1,5 +1,5 @@
-# rails-nyumon
-Rails Railway 入門編のテンプレートリポジトリ
+# ruby-nyumon
+Ruby Railway 入門編のテンプレートリポジトリ
 
 # 環境構築
 
