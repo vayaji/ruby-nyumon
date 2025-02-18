@@ -45,6 +45,11 @@ gem install bundler
 
 ruby -e "puts 'Hello, Ruby!'"
 
+## 6. Gemのインストール
+
+bundle install
+
+
 ## トラブルシューティング
 
 - コマンドが見つからない場合は、`~/.zshrc`に以下のパスが追加されているか確認：

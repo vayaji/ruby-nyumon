@@ -28,6 +28,10 @@ gem install bundler を実行
 
 ruby -e "puts 'Hello, Ruby!'" を実行してRubyが正しく動作することを確認
 
+## 6. Gemのインストール
+
+bundle install を実行
+
 ## トラブルシューティング
 
 ### SSL証明書のエラーが発生する場合
