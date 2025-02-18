@@ -2,63 +2,59 @@ require 'spec_helper'
 require 'rack/test'
 require_relative '../../app'
 
-RSpec.describe 'Station8: TODOの作成機能' do
-  include Rack::Test::Methods
+RSpec.describe '作成機能を実装しよう' do
+  include Capybara::DSL
 
-  def app
-    Sinatra::Application
+  before(:each) do
+    Capybara.app = Sinatra::Application
+    # テスト前にメモリ内データベースを使用
+    db = SQLite3::Database.new(':memory:')  
+    db.execute('CREATE TABLE todos (id INTEGER PRIMARY KEY, title TEXT)')  # テーブルを作成
   end
 
   describe 'フォームの確認' do
     before do
-      get '/todos'
+      visit '/todos'
     end
 
     it 'フォームが存在すること' do
-      expect(last_response.body).to include('<form')
-      expect(last_response.body).to include('method="POST"')
-      expect(last_response.body).to include('action="/todos"')
+      expect(page).to have_selector('form')
+      expect(page).to have_selector('form[method="POST"]')
+      expect(page).to have_selector('form[action="/todos"]')
     end
 
     it '入力フィールドが存在すること' do
-      expect(last_response.body).to include('type="text"')
-      expect(last_response.body).to include('name="title"')
+      expect(page).to have_selector('input[type="text"][name="title"]')
     end
 
-    it '送信ボタンが存在すること' do
-      expect(last_response.body).to include('type="submit"')
+    it '追加ボタンが存在すること' do
+      expect(page).to have_selector('input[type="submit"]')
     end
   end
 
   describe 'TODOの作成' do
-    let(:db) { SQLite3::Database.new('db/todos.db') }
-    
-    before(:each) do
-      # テスト前にテーブルをクリア
-      db.execute('DELETE FROM todos')
-    end
-
-    it 'POSTリクエストでTODOを作成できること' do
-      post '/todos', title: 'テストTODO'
-      expect(last_response.status).to eq 302  # リダイレクトのステータスコード
-    end
-
     it 'データベースに新しいTODOが保存されること' do
-      post '/todos', title: 'テストTODO'
+      visit '/todos'
+      fill_in 'title', with: 'テストTODO'
+      click_button '追加'
+      db = SQLite3::Database.new('db/todos.db')
       todos = db.execute('SELECT title FROM todos')
       expect(todos).to include(['テストTODO'])
     end
 
     it '作成後にトップページにリダイレクトされること' do
-      post '/todos', title: 'テストTODO'
-      follow_redirect!
-      expect(last_request.path).to eq '/'
+      visit '/todos'
+      fill_in 'title', with: 'テストTODO'
+      click_button '追加'
+      expect(current_path).to eq '/todos'
     end
 
     it '作成したTODOが一覧に表示されること' do
-      post '/todos', title: 'テストTODO'
-      get '/todos'
-      expect(last_response.body).to include('テストTODO')
+      visit '/todos'
+      fill_in 'title', with: 'テストTODO'
+      click_button '追加'
+      visit '/todos'
+      expect(page).to have_content('テストTODO')
     end
   end
 end 

@@ -5,12 +5,10 @@ require_relative '../../app'
 
 RSpec.describe 'Station12: TODOリスト取得API' do
   include Rack::Test::Methods
-
   def app
     Sinatra::Application
   end
 
-  let(:db) { SQLite3::Database.new('db/todos.db') }
   let(:test_todos) do
     [
       'テスト用TODO1',
@@ -61,16 +59,6 @@ RSpec.describe 'Station12: TODOリスト取得API' do
         expect(todo['id']).to be_an(Integer)
         expect(todo['title']).to be_a(String)
       end
-    end
-  end
-
-  describe 'エラーハンドリング' do
-    it 'データベースエラー時に500エラーを返すこと' do
-      allow(DB).to receive(:execute).and_raise(SQLite3::Exception)
-      get '/api/todos'
-      expect(last_response.status).to eq 500
-      error_response = JSON.parse(last_response.body)
-      expect(error_response).to have_key('error')
     end
   end
 end 

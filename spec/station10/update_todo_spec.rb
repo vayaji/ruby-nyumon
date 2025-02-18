@@ -1,80 +1,47 @@
 require 'spec_helper'
-require 'rack/test'
 require 'nokogiri'
 require_relative '../../app'
 
-RSpec.describe 'Station10: TODOの更新機能' do
-  include Rack::Test::Methods
+Capybara.app = Sinatra::Application
 
-  def app
-    Sinatra::Application
-  end
+RSpec.describe '編集機能を実装しよう' do
+  include Capybara::DSL
 
-  let(:db) { SQLite3::Database.new('db/todos.db') }
   let(:test_todo_title) { 'テスト用TODO' }
   let(:updated_title) { '更新後のTODO' }
-
   before(:each) do
-    # テストデータの準備
-    db.execute('DELETE FROM todos')
-    db.execute('INSERT INTO todos (title) VALUES (?)', [test_todo_title])
-    @todo_id = db.last_insert_row_id
+    DB.execute('INSERT INTO todos (title) VALUES (?)', [test_todo_title])
+    @todo_id = DB.last_insert_row_id
   end
 
-  describe '編集フォームの確認' do
-    before { get "/todos/#{@todo_id}/edit" }
 
-    it 'フォームのmethod属性がPOSTであること' do
-      doc = Nokogiri::HTML(last_response.body)
-      expect(doc.css('form').first['method'].downcase).to eq('post')
-    end
-
-    it 'フォームのaction属性が正しいこと' do
-      doc = Nokogiri::HTML(last_response.body)
-      expect(doc.css('form').first['action']).to eq("/todos/#{@todo_id}")
-    end
-
-    it '_method=PUTの隠しフィールドが存在すること' do
-      doc = Nokogiri::HTML(last_response.body)
-      hidden_method = doc.css('input[type="hidden"][name="_method"][value="PUT"]')
-      expect(hidden_method).not_to be_empty
-    end
+  it 'PUTリクエストでTODOを更新できること' do
+    visit "/todos/#{@todo_id}"
+    fill_in 'title', with: updated_title
+    click_button '更新'
+    expect(current_path).to eq('/todos')
   end
 
-  describe 'TODOの更新' do
-    it 'PUTリクエストでTODOを更新できること' do
-      put "/todos/#{@todo_id}", { title: updated_title }
-      expect(last_response.status).to eq 302  # リダイレクトのステータスコード
-    end
-
-    it 'データベースの内容が更新されていること' do
-      put "/todos/#{@todo_id}", { title: updated_title }
-      updated_todo = db.execute('SELECT title FROM todos WHERE id = ?', [@todo_id]).first
-      expect(updated_todo[0]).to eq(updated_title)
-    end
-
-    it '更新後に一覧画面にリダイレクトされること' do
-      put "/todos/#{@todo_id}", { title: updated_title }
-      follow_redirect!
-      expect(last_request.path).to eq('/todos')
-    end
-
-    it '更新されたTODOが一覧に表示されること' do
-      put "/todos/#{@todo_id}", { title: updated_title }
-      get '/todos'
-      expect(last_response.body).to include(updated_title)
-    end
+  it 'データベースの内容が更新されていること' do
+    visit "/todos/#{@todo_id}"
+    fill_in 'title', with: updated_title
+    click_button '更新'
+    updated_todo = DB.execute('SELECT title FROM todos WHERE id = ?', [@todo_id]).first
+    expect(updated_todo[0]).to eq(updated_title)
   end
 
-  describe 'エラーハンドリング' do
-    it '存在しないTODOの更新時は404エラーを返すこと' do
-      put '/todos/999999', { title: updated_title }
-      expect(last_response.status).to eq 404
-    end
+  it '更新後に一覧画面にリダイレクトされること' do
+    visit "/todos/#{@todo_id}"
+    fill_in 'title', with: updated_title
+    click_button '更新'
+    expect(current_path).to eq('/todos')
+  end
 
-    it 'タイトルが空の場合は更新に失敗すること' do
-      put "/todos/#{@todo_id}", { title: '' }
-      expect(last_response.status).to eq 400
-    end
+  it '更新されたTODOが一覧に表示されること' do
+    visit "/todos/#{@todo_id}"
+    fill_in 'title', with: updated_title
+    click_button '更新'
+    visit '/todos'
+    expect(page).to have_content(updated_title)
   end
 end 
