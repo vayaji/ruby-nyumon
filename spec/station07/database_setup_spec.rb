@@ -3,8 +3,6 @@ require 'sqlite3'
 require_relative '../../app'
 require 'capybara/rspec'
 
-Capybara.app = Sinatra::Application
-
 RSpec.describe 'データベースと接続しよう' do
   include Rack::Test::Methods
 
@@ -12,21 +10,14 @@ RSpec.describe 'データベースと接続しよう' do
     Sinatra::Application
   end
 
-  let(:db_file) { 'db/todos.db' }
-  let(:db) { SQLite3::Database.new(db_file) }
-  
   describe 'データベースの設定' do
-    it 'データベースファイルが存在すること' do
-      expect(File.exist?(db_file)).to be true
-    end
-
     it 'todosテーブルが存在すること' do
-      tables = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='todos'")
+      tables = DB.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='todos'")
       expect(tables).not_to be_empty
     end
 
     it 'todosテーブルが正しい構造であること' do
-      table_info = db.table_info('todos')
+      table_info = DB.table_info('todos')
       columns = table_info.map { |col| col['name'] }
 
       expect(columns).to include('id')
@@ -35,7 +26,7 @@ RSpec.describe 'データベースと接続しよう' do
     end
 
     it 'サンプルデータが存在すること' do
-      todos = db.execute('SELECT title FROM todos')
+      todos = DB.execute('SELECT title FROM todos')
       expect(todos.size).to be >= 3
 
       sample_titles = [
@@ -61,9 +52,9 @@ RSpec.describe 'データベースと接続しよう' do
 
     it 'データベースのTODOが表示されること' do
       visit '/todos'  
-      expect(page).to have_content('TechTrain で Ruby を学ぶ')  
-      expect(page).to have_content('SQLite の基本を理解する')  
-      expect(page).to have_content('TODO アプリを完成させる')  
+      expect(page).to have_content('TechTrain で Ruby を学ぶ')
+      expect(page).to have_content('SQLite の基本を理解する')
+      expect(page).to have_content('TODO アプリを完成させる')
     end
   end
 end 

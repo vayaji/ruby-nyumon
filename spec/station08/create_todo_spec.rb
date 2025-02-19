@@ -5,13 +5,6 @@ require_relative '../../app'
 RSpec.describe '作成機能を実装しよう' do
   include Capybara::DSL
 
-  before(:each) do
-    Capybara.app = Sinatra::Application
-    # テスト前にメモリ内データベースを使用
-    db = SQLite3::Database.new(':memory:')  
-    db.execute('CREATE TABLE todos (id INTEGER PRIMARY KEY, title TEXT)')  # テーブルを作成
-  end
-
   describe 'フォームの確認' do
     before do
       visit '/todos'

@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'capybara/rspec'
 require_relative '../../app'
 
-Capybara.app = Sinatra::Application
-
 RSpec.describe 'Station11: TODOの削除機能' do
   include Capybara::DSL
 

@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'capybara/rspec'
 require_relative '../../app.rb'
 
-Capybara.app = Sinatra::Application
-
 RSpec.describe 'sinatra を使って開発しよう' do
   include Capybara::DSL
 
