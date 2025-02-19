@@ -1,6 +1,8 @@
 require 'rspec'
 require 'rack/test'
 require 'capybara/rspec'
+require 'sinatra'
+require_relative '../db/todos'
 
 ENV['RACK_ENV'] = 'test'
 Capybara.app_host = 'http://localhost:4567'  # ホストを指定

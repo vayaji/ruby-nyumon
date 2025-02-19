@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'nokogiri'
 require_relative '../../app'
 
-Capybara.app = Sinatra::Application
-
 RSpec.describe '編集機能を実装しよう' do
   include Capybara::DSL
 

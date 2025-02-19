@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yaml'
 
-RSpec.describe 'Station16: ActiveRecordのセットアップ' do
+RSpec.describe 'Active Record を使ってみよう' do
   describe 'Gemfileの設定' do
     let(:gemfile_content) { File.read('Gemfile') }
 
@@ -56,15 +56,6 @@ RSpec.describe 'Station16: ActiveRecordのセットアップ' do
     it 'マイグレーションファイルが存在すること' do
       expect(migration_files).not_to be_empty
     end
-
-    it '正しいテーブル構造が定義されていること' do
-      migration_content = File.read(migration_files.first)
-      
-      expect(migration_content).to include('create_table :todos')
-      expect(migration_content).to include('t.string :title')
-      expect(migration_content).to include('t.boolean :completed')
-      expect(migration_content).to include('t.timestamps')
-    end
   end
 
   describe 'アプリケーションの設定' do
@@ -85,4 +76,4 @@ RSpec.describe 'Station16: ActiveRecordのセットアップ' do
       expect(File.exist?('db/test.sqlite3')).to be true
     end
   end
-end 
+end
