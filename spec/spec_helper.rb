@@ -20,6 +20,9 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Capybara.app = Sinatra::Application
-    DB.execute('DELETE FROM todos') # テストごとにDBをクリア
+  end
+
+  config.before(:each, clear_todos: true) do
+    DB.execute('DELETE FROM todos')
   end
 end 

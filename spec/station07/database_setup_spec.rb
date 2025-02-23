@@ -3,7 +3,7 @@ require 'sqlite3'
 require_relative '../../app'
 require 'capybara/rspec'
 
-RSpec.describe 'データベースと接続しよう' do
+RSpec.describe 'データベースと接続しよう', clear_db: true do
   include Rack::Test::Methods
 
   def app

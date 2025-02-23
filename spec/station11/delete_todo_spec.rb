@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'capybara/rspec'
 require_relative '../../app'
 
-RSpec.describe 'Station11: TODOの削除機能' do
+RSpec.describe 'Station11: TODOの削除機能', clear_db: true do
   include Capybara::DSL
 
   let(:test_todo_title) { 'テスト用TODO' }

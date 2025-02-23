@@ -3,7 +3,7 @@ require 'rack/test'
 require 'json'
 require_relative '../../app'
 
-RSpec.describe 'API: TODOリスト取得' do
+RSpec.describe 'API: TODOリスト取得', clear_db: true do
   include Rack::Test::Methods
 
   def app

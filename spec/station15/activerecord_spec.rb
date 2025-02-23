@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yaml'
 
-RSpec.describe 'Active Record を使ってみよう' do
+RSpec.describe 'Active Record を使ってみよう', clear_db: true do
   describe 'Gemfileの設定' do
     let(:gemfile_content) { File.read('Gemfile') }
 

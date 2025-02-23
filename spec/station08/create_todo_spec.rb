@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'rack/test'
 require_relative '../../app'
 
-RSpec.describe '作成機能を実装しよう' do
+RSpec.describe '作成機能を実装しよう', clear_db: true do
   include Capybara::DSL
 
   describe 'フォームの確認' do

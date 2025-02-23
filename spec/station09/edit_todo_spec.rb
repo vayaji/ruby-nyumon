@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'nokogiri'
 require_relative '../../app'
 
-RSpec.describe '編集画面を実装しよう' do
+RSpec.describe '編集画面を実装しよう', clear_db: true do
   include Capybara::DSL
 
   let(:test_todo_title) { 'テスト用TODO' }
