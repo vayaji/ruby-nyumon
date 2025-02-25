@@ -18,6 +18,19 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
+  
+  config.before(:suite) do
+    @original_stdout = $stdout
+    @original_stderr = $stderr
+    $stdout = File.open(File::NULL, "w")
+    $stderr = File.open(File::NULL, "w")
+  end
+
+  after(:suite) do
+    $stdout = @original_stdout
+    $stderr = @original_stderr
+  end
+
   config.before(:each) do
     Capybara.app = Sinatra::Application
   end
