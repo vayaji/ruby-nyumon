@@ -1,0 +1,12 @@
+{
+  "name": "Station 16",
+  "id": 856,
+  "prepare": [],
+  "tests": [
+    {
+      "type": "rspec",
+      "specFile": "spec/station16/",
+      "useDocker": false
+    }
+  ]
+}
