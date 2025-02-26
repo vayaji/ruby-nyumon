@@ -2,7 +2,11 @@ require 'rspec'
 require 'rack/test'
 require 'capybara/rspec'
 require 'sinatra'
-require_relative '../db/todos'
+# db/todosファイルが存在する場合のみ読み込む
+if File.exist?(File.expand_path('../db/todos.rb', __dir__))
+  require_relative '../db/todos'
+end
+
 
 ENV['RACK_ENV'] = 'test'
 Capybara.app_host = 'http://localhost:4567'  # ホストを指定
@@ -36,6 +40,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each, clear_todos: true) do
-    DB.execute('DELETE FROM todos')
+    if defined?(DB)
+      DB.execute('DELETE FROM todos')
+    end
   end
 end 
