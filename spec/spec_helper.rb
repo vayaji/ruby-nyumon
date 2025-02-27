@@ -22,6 +22,9 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
+  config.before(:all) do
+    Sinatra::Application.set :views, File.join(File.dirname(__FILE__), '../views')
+  end
   
   config.before(:suite) do
     @original_stdout = $stdout
@@ -37,6 +40,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Capybara.app = Sinatra::Application
+    Capybara.default_max_wait_time = 5  # 待機時間を5秒に設定
   end
 
   config.before(:each, clear_todos: true) do

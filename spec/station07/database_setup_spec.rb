@@ -43,14 +43,29 @@ RSpec.describe 'データベースと接続しよう', clear_db: true do
   end
 
   describe 'アプリケーションの動作' do
-    include Capybara::DSL  
+    include Capybara::DSL
+    
+    before(:all) do
+      # サーバーを別スレッドで起動
+      @server_thread = Thread.new do
+        Sinatra::Application.run! host: 'localhost', port: 4567
+      end
+      # サーバーの起動を待つ
+      sleep 3
+    end
 
+    after(:all) do
+      # サーバーを停止
+      @server_thread.kill if @server_thread
+    end
+    
     it '/todosにアクセスできること' do
       visit '/todos'  
       expect(page.status_code).to eq 200  
     end
 
     it 'データベースのTODOが表示されること' do
+      binding.irb
       visit '/todos'  
       expect(page).to have_content('TechTrain で Ruby を学ぶ')
       expect(page).to have_content('SQLite の基本を理解する')
