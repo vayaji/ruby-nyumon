@@ -2,9 +2,11 @@ require 'spec_helper'
 require 'sqlite3'
 require_relative '../../app'
 require 'capybara/rspec'
+require 'rack/test'
 
 RSpec.describe 'データベースと接続しよう', clear_db: true do
-  include Rack::Test::MethodsL
+  include Rack::Test::Methods
+  include Capybara::DSL
 
   def app
     Sinatra::Application
@@ -46,17 +48,11 @@ RSpec.describe 'データベースと接続しよう', clear_db: true do
     include Capybara::DSL
     
     before(:all) do
-      # サーバーを別スレッドで起動
-      @server_thread = Thread.new do
-        Sinatra::Application.run! host: 'localhost', port: 4567
-      end
-      # サーバーの起動を待つ
-      sleep 3
+      start_server
     end
 
     after(:all) do
-      # サーバーを停止
-      @server_thread.kill if @server_thread
+      stop_server
     end
     
     it '/todosにアクセスできること' do

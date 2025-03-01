@@ -11,6 +11,17 @@ end
 ENV['RACK_ENV'] = 'test'
 Capybara.app_host = 'http://localhost:4567'  # ホストを指定
 
+def start_server
+  @server_thread = Thread.new do
+    Sinatra::Application.run! host: 'localhost', port: 4567
+  end
+  sleep 2
+end
+
+def stop_server
+  @server_thread.kill if @server_thread
+end
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
