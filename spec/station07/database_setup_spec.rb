@@ -4,7 +4,7 @@ require_relative '../../app'
 require 'capybara/rspec'
 
 RSpec.describe 'データベースと接続しよう', clear_db: true do
-  include Rack::Test::Methods
+  include Rack::Test::MethodsL
 
   def app
     Sinatra::Application
@@ -65,7 +65,6 @@ RSpec.describe 'データベースと接続しよう', clear_db: true do
     end
 
     it 'データベースのTODOが表示されること' do
-      binding.irb
       visit '/todos'  
       expect(page).to have_content('TechTrain で Ruby を学ぶ')
       expect(page).to have_content('SQLite の基本を理解する')
