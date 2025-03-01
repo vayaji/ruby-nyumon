@@ -54,7 +54,7 @@ RSpec.configure do |config|
     end
   end
 
-  config.before(:each, clear_todos: true) do
+  config.before(:each, clear_db: true) do
     if defined?(DB)
       DB.execute('DELETE FROM todos')
     end

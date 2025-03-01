@@ -4,10 +4,9 @@ require_relative '../../app'
 require 'capybara/rspec'
 require 'rack/test'
 
-RSpec.describe 'データベースと接続しよう', clear_db: true do
-  include Rack::Test::Methods
-  
+RSpec.describe 'データベースと接続しよう' do
   before(:all) do
+    ENV['RACK_ENV'] = 'development'
     start_server
   end
 

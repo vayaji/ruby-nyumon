@@ -2,8 +2,6 @@ require 'spec_helper'
 require_relative '../../app'
 
 RSpec.describe '作成機能を実装しよう', clear_db: true do
-  include Rack::Test::Methods
-  
   before(:all) do
     start_server
   end
@@ -37,9 +35,8 @@ RSpec.describe '作成機能を実装しよう', clear_db: true do
       visit '/todos'
       fill_in 'title', with: 'テストTODO'
       click_button '追加'
-      db = SQLite3::Database.new('db/todos.db')
-      todos = db.execute('SELECT title FROM todos')
-      expect(todos).to include(['テストTODO'])
+      todos = DB.execute('SELECT title FROM todos')
+      expect(todos).to eq [{"title"=>"テストTODO"}]
     end
 
     it '作成後にトップページにリダイレクトされること' do
