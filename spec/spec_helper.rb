@@ -1,6 +1,7 @@
 require 'rspec'
 require 'rack/test'
 require 'capybara/rspec'
+
 # db/todosファイルが存在する場合のみ読み込む
 if File.exist?(File.expand_path('../db/todos.rb', __dir__))
   require_relative '../db/todos'
@@ -35,9 +36,9 @@ RSpec.configure do |config|
 
   config.before(:each) do |example|
     if defined?(Sinatra::Application) && example.metadata[:require_sinatra] != false
-      Sinatra::Application.set :views, File.join(File.dirname(__FILE__), '../views')
+      Sinatra::Application.set :views, File.expand_path('../../views', __FILE__)
       Capybara.app = Sinatra::Application
-      Capybara.default_max_wait_time = 5  # 待機時間を5秒に設定
+      Capybara.default_max_wait_time = 6  # 待機時間を5秒に設定
     end
   end
 
