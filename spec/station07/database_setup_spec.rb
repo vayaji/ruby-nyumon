@@ -6,8 +6,13 @@ require 'rack/test'
 
 RSpec.describe 'データベースと接続しよう', clear_db: true do
   include Rack::Test::Methods
-  def app
-    Sinatra::Application
+  
+  before(:all) do
+    start_server
+  end
+
+  after(:all) do
+    stop_server
   end
 
   describe 'データベースの設定' do

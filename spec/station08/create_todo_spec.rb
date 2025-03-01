@@ -4,11 +4,6 @@ require_relative '../../app'
 RSpec.describe '作成機能を実装しよう', clear_db: true do
   include Rack::Test::Methods
   
-  # この行を追加
-  def app
-    Sinatra::Application
-  end
-  
   before(:all) do
     start_server
   end

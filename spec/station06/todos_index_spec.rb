@@ -4,17 +4,12 @@ require 'capybara/rspec'
 require_relative '../../app'
 
 RSpec.describe '一覧画面を作成しよう' do
-  def app
-    Sinatra::Application
-  end
-
   before(:all) do
-    @server_thread = Thread.new { Sinatra::Application.run! host: 'localhost', port: 4567 }
-    sleep 2
+    start_server
   end
 
   after(:all) do
-    @server_thread.kill
+    stop_server
   end
 
   describe 'GET /todos' do
