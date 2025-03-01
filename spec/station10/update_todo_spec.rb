@@ -3,8 +3,6 @@ require 'nokogiri'
 require_relative '../../app'
 
 RSpec.describe '編集機能を実装しよう', clear_db: true do
-  include Capybara::DSL
-
   let(:test_todo_title) { 'テスト用TODO' }
   let(:updated_title) { '更新後のTODO' }
   before(:each) do

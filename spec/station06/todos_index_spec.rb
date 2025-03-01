@@ -4,8 +4,6 @@ require 'capybara/rspec'
 require_relative '../../app'
 
 RSpec.describe '一覧画面を作成しよう' do
-  include Capybara::DSL
-
   def app
     Sinatra::Application
   end

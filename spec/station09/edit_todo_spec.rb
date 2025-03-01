@@ -3,8 +3,6 @@ require 'nokogiri'
 require_relative '../../app'
 
 RSpec.describe '編集画面を実装しよう', clear_db: true do
-  include Capybara::DSL
-
   let(:test_todo_title) { 'テスト用TODO' }
   before(:each) do
     DB.execute('INSERT INTO todos (title) VALUES (?)', [test_todo_title])

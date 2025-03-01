@@ -3,8 +3,6 @@ require 'capybara/rspec'
 require_relative '../../app.rb'
 
 RSpec.describe 'sinatra を使って開発しよう' do
-  include Capybara::DSL
-
   before(:all) do
     start_server
   end

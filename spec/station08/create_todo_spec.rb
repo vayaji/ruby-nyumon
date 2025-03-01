@@ -2,7 +2,6 @@ require 'spec_helper'
 require_relative '../../app'
 
 RSpec.describe '作成機能を実装しよう', clear_db: true do
-  include Capybara::DSL
   include Rack::Test::Methods
   
   # この行を追加

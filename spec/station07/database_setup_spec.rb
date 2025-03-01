@@ -6,8 +6,6 @@ require 'rack/test'
 
 RSpec.describe 'データベースと接続しよう', clear_db: true do
   include Rack::Test::Methods
-  include Capybara::DSL
-
   def app
     Sinatra::Application
   end
@@ -45,8 +43,6 @@ RSpec.describe 'データベースと接続しよう', clear_db: true do
   end
 
   describe 'アプリケーションの動作' do
-    include Capybara::DSL
-    
     before(:all) do
       start_server
     end
