@@ -6,12 +6,8 @@ require_relative '../../app'
 RSpec.describe 'API: TODOリスト取得', clear_db: true do
   include Rack::Test::Methods
 
-  before(:all) do
-    start_server
-  end
-
-  after(:all) do
-    stop_server
+  def app
+    Sinatra::Application
   end
 
   let(:test_todos) do

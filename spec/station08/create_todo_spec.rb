@@ -36,7 +36,7 @@ RSpec.describe '作成機能を実装しよう', clear_db: true do
       fill_in 'title', with: 'テストTODO'
       click_button '追加'
       todos = DB.execute('SELECT title FROM todos')
-      expect(todos).to eq [{"title"=>"テストTODO"}]
+      expect(todos).to eq [["テストTODO"]]
     end
 
     it '作成後にトップページにリダイレクトされること' do
