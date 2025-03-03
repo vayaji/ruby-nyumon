@@ -5,8 +5,8 @@
   "tests": [
     {
       "type": "rspec",
-      "specFile": "spec/station09/"
+      "specFile": "spec/station09/",
+      "useDocker": false
     }
   ]
-
 }

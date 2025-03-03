@@ -17,8 +17,14 @@ auth.json
 npm-debug.log
 yarn-error.log
 /.fleet
-/.idea
+.idea
 /.vscode
 /.zed
 .techtrain/config.toml
-.idea/
+
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+
+*.gem
+*.rbc
