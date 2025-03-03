@@ -12,14 +12,14 @@ RSpec.describe '編集機能を実装しよう', clear_db: true do
 
 
   it 'PUTリクエストでTODOを更新できること' do
-    visit "/todos/#{@todo_id}"
+    visit "/todos/#{@todo_id}/edit"
     fill_in 'title', with: updated_title
     click_button '更新'
     expect(current_path).to eq('/todos')
   end
 
   it 'データベースの内容が更新されていること' do
-    visit "/todos/#{@todo_id}"
+    visit "/todos/#{@todo_id}/edit"
     fill_in 'title', with: updated_title
     click_button '更新'
     updated_todo = DB.execute('SELECT title FROM todos WHERE id = ?', [@todo_id]).first
@@ -27,14 +27,14 @@ RSpec.describe '編集機能を実装しよう', clear_db: true do
   end
 
   it '更新後に一覧画面にリダイレクトされること' do
-    visit "/todos/#{@todo_id}"
+    visit "/todos/#{@todo_id}/edit"
     fill_in 'title', with: updated_title
     click_button '更新'
     expect(current_path).to eq('/todos')
   end
 
   it '更新されたTODOが一覧に表示されること' do
-    visit "/todos/#{@todo_id}"
+    visit "/todos/#{@todo_id}/edit"
     fill_in 'title', with: updated_title
     click_button '更新'
     visit '/todos'
