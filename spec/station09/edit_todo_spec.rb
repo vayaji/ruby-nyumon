@@ -10,15 +10,15 @@ RSpec.describe '編集画面を実装しよう', clear_db: true do
   end
 
   describe '編集画面の確認' do
-    before { visit "/todos/#{@todo_id}" }
+    before { visit "/todos/#{@todo_id}/edit" }
 
     it '編集画面にアクセスできること' do
-       visit "/todos/#{@todo_id}"
+       visit "/todos/#{@todo_id}/edit"
       expect(page.status_code).to eq 200
     end
 
     it '編集フォームが存在すること' do
-      visit "/todos/#{@todo_id}"
+      visit "/todos/#{@todo_id}/edit"
       expect(page).to have_selector('form')
       expect(page).to have_selector('form[method="POST"]')
       expect(page).to have_selector("form[action='/todos/#{@todo_id}']")
