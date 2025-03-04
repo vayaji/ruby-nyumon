@@ -40,6 +40,8 @@ ruby -e "puts 'Hello, Ruby!'"
 bundle install
 ```
 
+ここまでできたら Railway に挑戦しましょう！
+
 ## トラブルシューティング
 
 ### SSL 証明書のエラーが発生する場合
