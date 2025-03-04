@@ -22,7 +22,7 @@
 
 ## 4. Bundler のインストール
 ```bash
-gem install bundler を実行
+gem install bundler
 ```
 
 ## 5. 動作確認
@@ -32,14 +32,14 @@ ruby -e "puts 'Hello, Ruby!'"
 ```
 ## 6. Gem のインストール
 ```bash
-bundle install を実行
+bundle install
 ```
 
 ## トラブルシューティング
 
 ### SSL 証明書のエラーが発生する場合
 下記を実行
-```bash
+```ruby
 gem update --system
 ```
 
