@@ -56,6 +56,9 @@ ruby -e "puts 'Hello, Ruby!'"
 ```
 
 ## 6. Gemのインストール
+下記のコマンドを必ず **ruby-nyumon リポジトリ配下**で実行する。
+※ VSCode で ruby-nyumon リポジトリを開いたあと、VSCode のターミナルを開くか、cd コマンドを使用して ruby-nyumon ディレクトリへ移動すること。
+
 ```ruby
 bundle install
 ```
