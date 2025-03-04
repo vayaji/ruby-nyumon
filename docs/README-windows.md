@@ -21,28 +21,26 @@
 コマンドプロンプトまたは PowerShell を開き、ruby -v で確認
 
 ## 4. Bundler のインストール
-```bash
+```ruby
 gem install bundler
 ```
 
 ## 5. 動作確認
 下記を実行して Ruby が正しく動作することを確認
-```bash
+```ruby
 ruby -e "puts 'Hello, Ruby!'"
 ```
 ## 6. Gem のインストール
-```bash
+```ruby
 bundle install
 ```
 
 ## トラブルシューティング
 
 ### SSL 証明書のエラーが発生する場合
-下記を実行
 ```ruby
 gem update --system
 ```
-
 
 ### コマンドが認識されない場合
 1. システム環境変数の PATH を確認
@@ -51,8 +49,7 @@ gem update --system
    - パスが無い場合は手動で追加
 
 ### MSYS2 関連のエラーが発生する場合
-コマンドプロンプトで下記を実行
-```bash
+```ruby
 ridk install
 ```
 

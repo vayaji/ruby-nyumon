@@ -9,52 +9,54 @@
 ## 2. rbenv のインストール
 
 Homebrew を使用して rbenv をインストールします：
-```bash
+```ruby
 brew install rbenv
 ```
 
 rbenvの初期化：
 ```bash
 echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+```
+```bash
 source ~/.zshrc
 ```
 
 ## 3. Ruby のインストール
 
 1. インストール可能な Ruby のバージョンを確認：
-```bash
+```ruby
 rbenv install -l
 ```
 
 2. 最新の安定版をインストール（例：3.2.2）：
-```bash
+```ruby
 rbenv install 3.2.2
 ```
 
 3. デフォルトの Ruby バージョンを設定：
-```bash
+```ruby
 rbenv global 3.2.2
 ```
 
 4. インストールの確認：
-```bash
+```ruby
 ruby -v
 ```
 
 ## 4. Bundler のインストール
-```bash
+```ruby
 gem install bundler
 ```
 
 ## 5. 動作確認
 
 以下のコマンドを実行して Ruby が正しく動作することを確認：
-```bash
+```ruby
 ruby -e "puts 'Hello, Ruby!'"
 ```
 
 ## 6. Gemのインストール
-```bash
+```ruby
 bundle install
 ```
 
