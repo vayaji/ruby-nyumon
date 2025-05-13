@@ -43,7 +43,7 @@ RSpec.describe '作成機能を実装しよう', clear_db: true do
       visit '/todos'
       fill_in 'title', with: 'テストTODO'
       click_button '追加'
-      expect(current_path).to eq '/todos'
+      expect(current_path).to eq '/'
     end
 
     it '作成したTODOが一覧に表示されること' do
