@@ -2,14 +2,13 @@ require 'rspec'
 require 'rack/test'
 require 'capybara/rspec'
 
+ENV['RACK_ENV'] = 'test'
+Capybara.app_host = 'http://localhost:4567'  # ホストを指定
+
 # db/todosファイルが存在する場合のみ読み込む
 if File.exist?(File.expand_path('../db/todos.rb', __dir__))
   require_relative '../db/todos'
 end
-
-
-ENV['RACK_ENV'] = 'test'
-Capybara.app_host = 'http://localhost:4567'  # ホストを指定
 
 def start_server
   @server_thread = Thread.new do
