@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
 group :test do
-  gem 'rspec'
   gem 'capybara'
   gem 'nokogiri'
-  gem 'rackup'
   gem 'puma'
+  gem 'rackup'
+  gem 'rspec'
 end
+gem 'rubocop', group: 'development', require: false
