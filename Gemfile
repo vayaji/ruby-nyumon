@@ -8,3 +8,5 @@ group :test do
   gem 'rspec'
 end
 gem 'rubocop', group: 'development', require: false
+
+gem 'sinatra', '~> 4.1'
