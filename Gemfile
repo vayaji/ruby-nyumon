@@ -11,6 +11,6 @@ gem 'rubocop', group: 'development', require: false
 
 gem 'sinatra', '~> 4.1'
 
-gem "sinatra-contrib", "~> 4.1"
+gem 'sinatra-contrib', '~> 4.1'
 
-gem "sqlite3", "~> 2.6"
+gem 'sqlite3', '~> 2.6'
