@@ -39,3 +39,41 @@ get '/api/todos' do
   todos = DB.execute('SELECT * FROM todos')
   JSON.pretty_generate(todos)
 end
+
+post '/api/todos' do
+  content_type :json
+
+  DB.execute('INSERT INTO todos (title) VALUES (?)', params[:title])
+
+  id = DB.execute('SELECT last_insert_rowid()')[0][0]
+
+  todo = DB.execute('SELECT * FROM todos WHERE id = ?', id).first
+
+  JSON.pretty_generate(todo)
+end
+
+get '/api/todos/:id' do
+  content_type :json
+  todo = DB.execute('SELECT * FROM todos WHERE id = ?', params[:id]).first
+  halt 404, JSON.pretty_generate({ error: 'Todo not found!' }) unless todo
+  JSON.pretty_generate(todo)
+end
+
+put '/api/todos/:id' do
+  content_type :json
+
+  DB.execute('UPDATE todos SET title = ? WHERE id = ?', [params[:title], params[:id]])
+
+  todo = DB.execute('SELECT * FROM todos WHERE id = ?', params[:id]).first
+  halt 404, JSON.pretty_generate({ error: 'Todo not found!' }) unless todo
+
+  JSON.pretty_generate(todo)
+end
+
+delete '/api/todos/:id' do
+  content_type :json
+
+  DB.execute('DELETE FROM todos WHERE id = ?', params[:id])
+
+  { message: 'TODO deleted' }.to_json
+end
